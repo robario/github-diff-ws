@@ -1,5 +1,6 @@
 // ==UserScript==
 // @match https://github.com/*/*/commit/*
+// @match https://github.com/*/*/compare/*
 // ==/UserScript==
 (function() {
     var toc = document.getElementById('toc');
