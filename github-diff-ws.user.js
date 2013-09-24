@@ -1,6 +1,8 @@
 // ==UserScript==
 // @match https://github.com/*/*/commit/*
 // @match https://github.com/*/*/compare/*
+// @match https://github.com/*/*/pull/*/files
+// @match https://github.com/*/*/pull/*/files?w=1
 // ==/UserScript==
 (function() {
     var toc = document.getElementById('toc');
@@ -11,10 +13,10 @@
     var updateUI = function(toc) {
         var a = document.createElement('a');
         a.setAttribute('class', 'minibutton');
-        if (/[&?]w=/.test(location.search)) {
+        if (/[&?]w=1/.test(location.search)) {
             a.innerText = 'Cognize WS';
             a.onclick = function() {
-                var search = location.search.replace(/[&?]w=/g, '');
+                var search = location.search.replace(/[&?]w=1/g, '');
                 if (search) {
                     location.search = search;
                 } else {
@@ -24,7 +26,7 @@
         } else {
             a.innerText = 'Ignore WS';
             a.onclick = function() {
-                location.search += location.search ? '&w=' : '?w=';
+                location.search += location.search ? '&w=1' : '?w=1';
             };
         }
         toc.getElementsByClassName('explain')[0].insertBefore(a, toc.getElementsByClassName('show-diff-stats')[0]);
