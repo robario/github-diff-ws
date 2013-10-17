@@ -1,8 +1,7 @@
 // ==UserScript==
 // @match https://github.com/*/*/commit/*
 // @match https://github.com/*/*/compare/*
-// @match https://github.com/*/*/pull/*/files
-// @match https://github.com/*/*/pull/*/files?w=1
+// @match https://github.com/*/*/pull/*/files*
 // ==/UserScript==
 (function() {
     var toc = document.getElementById('toc');
@@ -13,21 +12,15 @@
     var updateUI = function(toc) {
         var a = document.createElement('a');
         a.setAttribute('class', 'minibutton');
-        if (/[&?]w=1/.test(location.search)) {
-            a.innerText = 'Cognize WS';
-            a.onclick = function() {
-                var search = location.search.replace(/[&?]w=1/g, '');
-                if (search) {
-                    location.search = search;
-                } else {
-                    location.href = location.pathname + location.hash;
-                }
-            };
-        } else {
+        var search = location.search.replace(/[&?]w=1(&|$)/g, '$1').replace(/^&/, '?');
+        if (search == location.search) {
             a.innerText = 'Ignore WS';
-            a.onclick = function() {
-                location.search += location.search ? '&w=1' : '?w=1';
-            };
+            search += (search ? '&' : '?') + 'w=1';
+        } else {
+            a.innerText = 'Cognize WS';
+        }
+        a.onclick = function() {
+            location.href = location.protocol + '//' + location.host + location.pathname + search + location.hash;
         }
         toc.getElementsByClassName('explain')[0].insertBefore(a, toc.getElementsByClassName('show-diff-stats')[0]);
     };
