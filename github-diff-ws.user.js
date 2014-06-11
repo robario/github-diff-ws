@@ -1,4 +1,8 @@
 // ==UserScript==
+// @name github-diff-ws.user.js
+// @namespace http://www.robario.com/
+// @version 0.1.0
+// @updateURL https://raw.githubusercontent.com/robario/github-diff-ws/master/github-diff-ws.user.js
 // @match https://github.com/*/*/commit/*
 // @match https://github.com/*/*/compare/*
 // @match https://github.com/*/*/pull/*/files*
