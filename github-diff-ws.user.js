@@ -1,13 +1,14 @@
 // ==UserScript==
 // @name github-diff-ws.user.js
 // @namespace http://www.robario.com/
-// @version 0.2.0
+// @version 0.2.1
 // @author robario <webmaster@robario.com>
 // @description Add a button to be able to toggle whitespace ignoring.
 // @updateURL https://raw.githubusercontent.com/robario/github-diff-ws/master/github-diff-ws.user.js
 // @match https://github.com/*/*/commit/*
 // @match https://github.com/*/*/compare/*
 // @match https://github.com/*/*/pull/*/files*
+// @grant none
 // ==/UserScript==
 (function() {
     var toc = document.getElementById('toc');
