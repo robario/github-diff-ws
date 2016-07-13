@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name github-diff-ws.user.js
 // @namespace http://www.robario.com/
-// @version 0.3.0
+// @version 0.3.1
 // @author robario <webmaster@robario.com>
 // @description Add a button to be able to toggle whitespace ignoring.
 // @updateURL https://raw.githubusercontent.com/robario/github-diff-ws/master/github-diff-ws.user.js
@@ -39,13 +39,17 @@
         } else {
             return;
         }
+        a.innerText = 'Ignore WS';
         var search = location.search.replace(/[&?]w=1(&|$)/g, '$1').replace(/^&/, '?');
         if (search == location.search) {
             search += (search ? '&' : '?') + 'w=1';
-            a.innerText = 'Ignore WS';
         } else {
             a.className += ' selected';
-            a.innerHTML = '<svg aria-hidden="true" class="octicon octicon-check" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>' + 'Ignore WS';
+            if (a.id === 'ignore-ws-dropdown-item') {
+                var div = document.createElement('div');
+                div.innerHTML = '<svg aria-hidden="true" class="octicon octicon-check" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>';
+                a.insertBefore(div.firstChild, a.firstChild);
+            }
         }
         a.onclick = function() {
             location.href = location.protocol + '//' + location.host + location.pathname + search + location.hash;
