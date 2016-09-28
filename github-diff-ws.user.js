@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name github-diff-ws.user.js
 // @namespace http://www.robario.com/
-// @version 0.3.1
+// @version 0.3.2
 // @author robario <webmaster@robario.com>
 // @description Add a button to be able to toggle whitespace ignoring.
 // @updateURL https://raw.githubusercontent.com/robario/github-diff-ws/master/github-diff-ws.user.js
@@ -20,8 +20,8 @@
                 return;
             }
             a.id = 'ignore-ws-btn';
-            a.className = 'btn btn-sm';
-            toc.getElementsByClassName('btn-group')[0].appendChild(a);
+            a.className = 'btn btn-sm BtnGroup-item';
+            toc.getElementsByClassName('BtnGroup')[0].appendChild(a);
         } else if (location.pathname.match(new RegExp('^/.+?/.+?/pull/.+?/(?:commits/.+|files)'))) {
             if (document.getElementById('ignore-ws-dropdown-item')) {
                 return;
@@ -31,10 +31,9 @@
                 return;
             }
             a.id = 'ignore-ws-dropdown-item';
-            a.className = 'dropdown-item';
+            a.className = 'btn btn-sm btn-outline BtnGroup-item';
             files_bucket
-                .getElementsByClassName('diff-options-content')[0]
-                .getElementsByClassName('dropdown-menu')[0]
+                .getElementsByClassName('BtnGroup')[0]
                 .appendChild(a);
         } else {
             return;
