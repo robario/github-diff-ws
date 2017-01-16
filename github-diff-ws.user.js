@@ -55,6 +55,21 @@
         };
     };
 
+    // https://github.com/defunkt/jquery-pjax
     document.addEventListener('pjax:end', updateUI, false);
-    updateUI();
+    var observer = new MutationObserver(function (mutations) {
+        for (var i = 0; i < mutations.length; ++i) {
+            if (mutations[i].type === 'childList' && 0 < mutations[i].addedNodes.length) {
+                updateUI();
+                break;
+            }
+        }
+    });
+    observer.observe(document.getElementById('js-repo-pjax-container'),
+                     {
+                         attributes: true,
+                         characterData: true,
+                         childList: true,
+                         subtree: true,
+                     });
 })();
