@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name github-diff-ws.user.js
 // @namespace http://www.robario.com/
-// @version 0.4.0
+// @version 0.4.1
 // @author robario <webmaster@robario.com>
 // @description Add a button to be able to toggle whitespace ignoring.
 // @updateURL https://raw.githubusercontent.com/robario/github-diff-ws/master/github-diff-ws.user.js
@@ -31,7 +31,7 @@
                     continue;
                 }
                 var diffstat = jsFiles[i].getElementsByClassName('diffstat')[0];
-                if (!/^0 additions /.test(diffstat.getAttribute('aria-label'))) {
+                if (diffstat.getElementsByTagName('span').length !== diffstat.getElementsByClassName('block-diff-deleted').length) {
                     continue;
                 }
                 var notesAction = jsFiles[i].getElementsByClassName('show-file-notes')[0];
