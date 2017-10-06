@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name github-diff-ws.user.js
 // @namespace http://www.robario.com/
-// @version 0.4.1
+// @version 0.4.2
 // @author robario <webmaster@robario.com>
 // @description Add a button to be able to toggle whitespace ignoring.
 // @updateURL https://raw.githubusercontent.com/robario/github-diff-ws/master/github-diff-ws.user.js
@@ -31,7 +31,10 @@
                     continue;
                 }
                 var diffstat = jsFiles[i].getElementsByClassName('diffstat')[0];
-                if (diffstat.getElementsByTagName('span').length !== diffstat.getElementsByClassName('block-diff-deleted').length) {
+                if (!/0 additions & (\d+) deletions/.test(jsFiles[i].getElementsByClassName('diffstat')[0].getAttribute('aria-label'))) {
+                    continue;
+                }
+                if (RegExp.$1 !== jsFiles[i].querySelector('.diff-table tr:last-child td').getAttribute('data-line-number')) {
                     continue;
                 }
                 var notesAction = jsFiles[i].getElementsByClassName('show-file-notes')[0];
@@ -43,7 +46,7 @@
                 var contentsActionInput = contentsAction.getElementsByTagName('input')[0];
                 contentsActionInput.classList.remove('js-toggle-file-notes');
                 contentsActionInput.classList.add('js-toggle-file-contents');
-                contentsActionInput.nextSibling.nodeValue = 'Show contents';
+                contentsActionInput.nextSibling.nodeValue = 'Show deleted file contents';
                 contentsActionInput.addEventListener('change', (function (jsFileContent) {
                     return function () {
                         jsFileContent.style.display = this.checked ? 'block' : 'none';
